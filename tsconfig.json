@@ -34,6 +34,12 @@
     },
     {
       "path": "./projects/bsoft-ui/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/demo-bsoft/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/demo-bsoft/tsconfig.spec.json"
     }
   ]
 }
