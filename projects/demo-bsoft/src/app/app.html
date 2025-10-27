@@ -35,4 +35,15 @@
 ></lib-data-table>
 
 
-<lib-chart-widget></lib-chart-widget>
+<!-- <lib-chart-widget></lib-chart-widget> -->
+<!-- bar - pie - doughnut - radar - polarArea-->
+<lib-chart-widget
+  [chartType]="'line'"
+  [labels]="['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo']"
+  [datasets]="[
+    { label: 'Ingresos', data: [500, 700, 800, 900, 1100], borderColor: 'green', backgroundColor: 'rgba(0,128,0,0.2)', fill: true },
+    { label: 'Egresos', data: [300, 400, 500, 600, 700], borderColor: 'red', backgroundColor: 'rgba(255,0,0,0.2)', fill: true }
+  ]"
+  title="Ingresos vs Egresos"
+></lib-chart-widget>
+
