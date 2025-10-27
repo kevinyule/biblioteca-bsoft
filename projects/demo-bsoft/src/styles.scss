@@ -1,1 +1,105 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================
+   IMPORTACIONES
+   ============================ */
+
+/* Importa Bootstrap y Bootstrap Icons */
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* ============================
+   ESTILOS GENERALES
+   ============================ */
+
+body {
+  background-color: #f5f6f8;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #212529;
+  margin: 0;
+}
+
+/* ============================
+   TABLA PERSONALIZADA
+   ============================ */
+
+.table-wrapper {
+  overflow-y: auto;
+  overflow-x: auto;
+  max-height: 800px;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f3f5;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.table-primary {
+  background-color: #cce5ff !important;
+  transition: all 0.2s ease-in-out;
+}
+
+/* ============================
+   ENCABEZADOS (STICKY)
+   ============================ */
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: #212529 !important; /* tono Bootstrap oscuro */
+  color: #ffffff !important;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ============================
+   FILTROS Y ÍCONOS
+   ============================ */
+
+.filter-icon {
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 8px;
+  color: #adb5bd;
+  transition: color 0.2s;
+}
+
+.filter-icon:hover {
+  color: #0d6efd; /* azul Bootstrap */
+}
+
+/* ============================
+   PAGINACIÓN
+   ============================ */
+
+.pagination-wrapper {
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  padding: 10px 15px;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+}
+
+.pagination .page-link {
+  color: #0d6efd;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.pagination .page-link:hover {
+  color: #0a58ca;
+}

@@ -1,0 +1,52 @@
+.df-row {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.df-input-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.df-input {
+  width: 100%;
+  padding: 1rem 0.5rem 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.2s ease-in-out;
+  font-size: 1rem;
+}
+
+.df-input:focus {
+  border-color: #477B92;
+  box-shadow: 0 0 0 2px rgba(43, 138, 239, 0.2);
+}
+
+.df-label {
+  position: absolute;
+  top: 50%;
+  left: 0.6rem;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #666;
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
+  background: white;
+  padding: 0 0.3rem;
+}
+
+.df-label.active {
+  top: -0.1rem;
+  font-size: 1.1rem;
+  color: #000000;
+  font-weight: 600;
+}
+
+/* Solo el * en rojo */
+.required-asterisk {
+  color: #d9534f;
+  margin-left: 0.2rem;
+  font-weight: bold;
+}

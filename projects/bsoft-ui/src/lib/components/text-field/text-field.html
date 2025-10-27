@@ -1,1 +1,23 @@
-<p>text-field works!</p>
+<div *ngIf="visible" class="df-row">
+  <div class="df-input-wrapper">
+    <input
+      type="text"
+      class="df-input"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [ngModel]="innerValue()"
+      (ngModelChange)="onInput($event)"
+      (focus)="focused.set(true)"
+      (blur)="focused.set(false)"
+    />
+
+    <label
+      *ngIf="label"
+      class="df-label"
+      [class.active]="focused() || innerValue()"
+    >
+      {{ label }}
+      <span *ngIf="required" class="required-asterisk"> *</span>
+    </label>
+  </div>
+</div>

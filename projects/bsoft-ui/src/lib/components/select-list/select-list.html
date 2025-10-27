@@ -1,1 +1,40 @@
-<p>select-list works!</p>
+<div *ngIf="visible" class="df-select-wrapper">
+  <ng-container *ngIf="options && options.length; else noOptions">
+    <div class="df-select-container">
+      <!-- Select -->
+      <select
+        [ngModel]="localValue()"
+        (ngModelChange)="emitChange($event)"
+        class="df-select"
+        [disabled]="disabled"
+        (focus)="focused.set(true)"
+        (blur)="focused.set(false)"
+      >
+        <option *ngIf="placeholder" [ngValue]="''" disabled>{{ placeholder }}</option>
+        <option *ngFor="let opt of options" [ngValue]="opt[valueKey]">
+          {{ formatOption(opt) }}
+        </option>
+      </select>
+
+      <!-- Label flotante -->
+      <label
+        *ngIf="label"
+        class="df-label"
+        [class.active]="focused() || localValue()"
+      >
+        {{ label }}
+        <span *ngIf="required" class="required-asterisk">*</span>
+      </label>
+
+      <!-- Chip de selección -->
+      <div *ngIf="selectedOption()" class="selected-chip">
+        {{ formatOption(selectedOption()) }}
+        <span class="chip-clear" (click)="clearSelection()">✕</span>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noOptions>
+    <p class="df-empty">No hay opciones disponibles</p>
+  </ng-template>
+</div>

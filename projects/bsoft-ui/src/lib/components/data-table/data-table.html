@@ -1,1 +1,118 @@
-<p>data-table works!</p>
+<div class="table-container">
+  <div class="table-responsive shadow-sm rounded-4 overflow-hidden">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-header">
+        <tr>
+          <th
+            *ngFor="let col of columns"
+            class="text-center"
+            (click)="toggleSort(col.key)"
+            [style.width]="col.width"
+          >
+            <div class="d-flex justify-content-between align-items-center">
+              <span>
+                {{ col.label }}
+                <i
+                  *ngIf="sortKey() === col.key"
+                  class="bi ms-1"
+                  [ngClass]="{
+                    'bi-caret-up-fill': sortOrder() === 'asc',
+                    'bi-caret-down-fill': sortOrder() === 'desc'
+                  }"
+                ></i>
+              </span>
+              <button
+                class="btn btn-sm btn-outline-light border-0 p-0"
+                title="Mostrar/Ocultar filtro"
+                (click)="$event.stopPropagation(); toggleFilter(col.key)"
+              >
+                <i class="bi bi-funnel-fill"></i>
+              </button>
+            </div>
+          </th>
+        </tr>
+
+        <tr>
+          <th *ngFor="let col of columns" class="filter-cell">
+            <input
+              *ngIf="showFilters()[col.key]"
+              [ngModel]="filters()[col.key]"
+              (ngModelChange)="updateFilter(col.key, $event)"
+              type="text"
+              class="form-control form-control-sm text-center filter-input"
+              placeholder="Buscar..."
+            />
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let row of paginatedData(); trackBy: trackByIndex"
+          (click)="toggleRowSelection(row)"
+          [class.selected-row]="isSelected(row)"
+        >
+          <td *ngFor="let col of columns" class="text-center">
+            {{ row[col.key] }}
+          </td>
+        </tr>
+
+        <tr *ngIf="paginatedData().length === 0">
+          <td [attr.colspan]="columns.length" class="text-center py-4 text-muted">
+            <i class="bi bi-emoji-frown fs-4 me-2"></i> No hay datos disponibles
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination-bar">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-2">
+        <label class="text-muted small mb-0">Mostrar:</label>
+        <select
+          [(ngModel)]="pageSizeSelected"
+          class="form-select form-select-sm w-auto"
+          (change)="changePageSize()"
+        >
+          <option *ngFor="let size of pageSizeOptions" [value]="size">
+            {{ size === 0 ? 'Todos' : size }}
+          </option>
+        </select>
+      </div>
+
+      <ul class="pagination pagination-sm mb-0">
+        <li class="page-item" [class.disabled]="currentPage() === 1">
+          <a
+            href="#"
+            class="page-link"
+            (click)="goToPage(currentPage() - 1); $event.preventDefault()"
+          >
+            <i class="bi bi-chevron-left"></i>
+          </a>
+        </li>
+
+        <li
+          *ngFor="let page of [].constructor(totalPages()); let i = index"
+          class="page-item"
+          [class.active]="currentPage() === i + 1"
+        >
+          <a href="#" class="page-link" (click)="goToPage(i + 1); $event.preventDefault()">
+            {{ i + 1 }}
+          </a>
+        </li>
+
+        <li class="page-item" [class.disabled]="currentPage() === totalPages()">
+          <a
+            href="#"
+            class="page-link"
+            (click)="goToPage(currentPage() + 1); $event.preventDefault()"
+          >
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
