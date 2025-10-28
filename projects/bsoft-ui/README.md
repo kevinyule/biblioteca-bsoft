@@ -70,37 +70,73 @@ ng serve demo-bsoft
 ---
 
 ## 📦 Publicar / Usar la librería en otro proyecto
+## ASEGURATE DE SUBIR LA VERSION EL PACKEGE.JSON ANTES DE COMPILAR
 
 1. Construir el paquete:
 ```bash
 ng build bsoft-ui
 cd dist/bsoft-ui
 npm pack
+npm publish # estar dentro de esta ruta cd dist/bsoft-ui
+npm version patch #version
 ```
 Genera `bsoft-ui-<version>.tgz`.
 
 2. Instalar en otro proyecto:
 ```bash
-npm install ./bsoft-ui-0.0.1.tgz
+npm install library-bsoft-ui --legacy-peer-deps
+
 ```
 
 3. Importar en el módulo (ejemplo `app.module.ts`):
+Y luego importarla así (si es standalone, mejor aún 👇):
 ```ts
-import { BsoftUiModule } from 'bsoft-ui';
 
-@NgModule({
-  imports: [BsoftUiModule],
-  bootstrap: [AppComponent]
-})
+
+import { TextField } from 'library-bsoft-ui';
+import { SelectList } from 'library-bsoft-ui';
+import { DataTable } from 'library-bsoft-ui';
+import { ChartWidget } from 'library-bsoft-ui';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [TextField,SelectList,DataTable,ChartWidget],
+  })
 export class AppModule {}
 ```
 
 4. Usar componentes en plantillas:
 ```html
-<lib-data-table></lib-data-table>
-<lib-text-field label="Nombre"></lib-text-field>
-<lib-select-list [options]="listaOpciones"></lib-select-list>
-<lib-chart-widget [data]="datosGrafico"></lib-chart-widget>
+<lib-text-field
+  [label]="'Nombre'"
+  [value]="nombre"
+  [required]="true"
+  (valueChange)="nombre = $event"
+></lib-text-field>
+
+
+<lib-select-list
+  [label]="'Tipo de Fuente'"
+  [options]="listaFuentes"
+  [value]="fuenteSeleccionada"
+  (valueChange)="fuenteSeleccionadaS($event)"
+  [required]="true"
+></lib-select-list>
+
+<lib-data-table
+  [data]="usuarios"
+  [columns]="[
+    { key: 'nombre', label: 'Nombre' },
+    { key: 'correo', label: 'Correo' },
+    { key: 'rol', label: 'Rol' }
+  ]"
+  [pageSize]="5"
+  [showCheckbox]="true"
+  selectionMode="multiple"
+  (change)="onSeleccion($event)"
+></lib-data-table>
+
 ```
 
 ---
